@@ -1,0 +1,266 @@
+#include<iostream>
+using namespace std;
+
+class Node
+{
+public:
+	int data;
+	Node *next;
+
+
+	Node(int val)
+	{
+		data = val;
+		next = NULL;
+	}
+};
+
+class LinkList
+{
+public:
+	Node *head;
+	Node *tail;
+	int count;
+
+	LinkList()
+	{
+		head = NULL;
+		tail = NULL;
+		count = 0;
+	}
+
+	//=====================================================================================================================================
+	void insertAtTail(int val)
+	{
+		Node *temp = new Node(val);
+
+		if (head == NULL)
+		{
+			head = temp;
+			tail = temp;
+			count++;
+		}
+		else
+		{
+			Node *temporary = head;
+			while (temporary->next != NULL)
+			{
+
+				temporary = temporary->next;
+			}
+			temporary->next = temp;
+			tail = temp;
+			count++;
+		}
+
+	}
+	//=====================================================================================================================================
+	void Display()
+	{
+
+		if (head == NULL)
+		{
+			cout << "\n List is Empty ";
+		}
+		else
+		{
+			Node *temporary = head;
+			while (temporary->next != NULL)
+			{
+				cout << "\n Data is : " << temporary->data << "\t\t And its Next Address : " << temporary->next;
+
+				temporary = temporary->next;
+			}
+			cout << "\n Data is : " << temporary->data << "\t\t And its Next Address : " << temporary->next;
+		}
+	}
+	//=====================================================================================================================================
+	void insertAfter(int key, int val)
+	{
+		Node *temp = new Node(val);
+
+		if (head == NULL)
+		{
+			
+			cout << "\n List is Empty ! And value is not inserted !";
+		}
+		else
+		{
+			Node *temporary = head;
+			while (temporary->next != NULL)
+			{
+				if (temporary->data == key)
+				{
+					temp->next = temporary->next;
+					temporary->next = temp;
+					count++;
+				}
+
+				temporary = temporary->next;
+
+			}
+
+			//    temporary->next = temp;
+		}
+	}
+	//=====================================================================================================================================
+	void deleteData(int key)
+	{
+		bool check = false;
+		if (head == NULL)
+		{
+			cout << "\n List is Empty ! And value is not deleted !";
+			check = false;
+		}
+		else
+		{
+			Node *temporary = head;
+			Node *pre = NULL;
+
+			while (temporary->next != NULL)
+			{
+				if (temporary->data == key)
+				{
+						pre->next = temporary->next;
+
+						cout << "\n Node is  deleted !\n ";
+						check = true;
+						count--;
+					//	cout << "\nTAIL IS FALSE\n";
+	
+				}
+
+				pre = temporary;
+				temporary = temporary->next;
+
+			}
+			if (temporary == tail)
+			{
+
+				pre->next = NULL;
+				tail = pre;
+
+				//cout << "\nTAIL IS TRUE\n";
+
+				cout << "\n Node is  deleted !\n ";
+				check = true;
+				count--;
+			}
+
+		}
+		
+	}
+	//=====================================================================================================================================
+	/*void updateData(int key,int val)
+	{
+		Node *newNode = new Node(val);
+
+		bool check = false;
+		if (head == NULL)
+		{
+			cout << "\n List is Empty ! And value is not inserted !";
+			check = false;
+		}
+		else
+		{
+			Node *temporary = head;
+			Node *pre = NULL;
+
+			while (temporary->next != NULL)
+			{
+				if (temporary->data == key)
+				{
+					pre->next = newNode;
+					newNode->next = temporary->next;
+				
+				}
+
+				pre = temporary;
+				temporary = temporary->next;
+
+			}
+			/*if (temporary == tail)
+			{
+
+				pre->next = NULL;
+				tail = pre;
+
+				//cout << "\nTAIL IS TRUE\n";
+
+				cout << "\n Node is  deleted !\n ";
+				check = true;
+				count--;
+			}
+
+		}
+
+	}
+	*/
+	//=====================================================================================================================================
+	int listSum()
+	{
+		int sum = 0;
+
+		if (head == NULL)
+		{
+			sum = 0;
+		}
+		else
+		{
+				Node *temporary = head;
+				while (temporary->next != NULL)
+				{
+				
+					sum += temporary->data;
+					temporary = temporary->next;
+				}
+				
+				sum += temporary->data;
+			
+
+		}
+		return sum;
+	}
+	
+
+};
+int main()
+{
+
+	LinkList list;
+	list.insertAtTail(25);
+	list.insertAtTail(50);
+	list.insertAtTail(75);
+	list.insertAtTail(100);
+	list.insertAfter(50, 2175);
+	
+	
+
+	list.Display();
+
+	cout << "\n\n Head is pointing : " << list.head;
+	cout << "\n Tail is pointing : " << list.tail;
+	cout << "\n Count is  : " << list.count;
+	cout << "\n Sum is  : " << list.listSum()<<endl;
+
+	list.deleteData(100);
+	list.Display();
+
+	cout << "\n\n Head is pointing : " << list.head;
+	cout << "\n Tail is pointing : " << list.tail;
+	cout << "\n Count is  : " << list.count;
+	cout << "\n Sum is  : " << list.listSum() << endl;
+	
+	/*list.updateData(25,126);
+	list.Display();
+
+	cout << "\n\n Head is pointing : " << list.head;
+	cout << "\n Tail is pointing : " << list.tail;
+	cout << "\n Count is  : " << list.count;
+	cout << "\n Sum is  : " << list.listSum() << endl;
+	*/
+	
+	cout << "\n\n";
+	system("pause");
+	
+}
